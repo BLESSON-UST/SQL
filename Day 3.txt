@@ -1,0 +1,35 @@
+Q. Vishwasamudra is a construction company. They need a software to develop a application for sales team to communicate with the customer.
+There are two types of categories for price with material.
+
+City		Price with material		Price without material
+
+Tvm			1600				800
+Chennai			1800				1000
+Hyderabad		2000				900
+Mumbai			2500				1200
+Kochi			1800				1200
+
+Now when a customer types the city and sqft he should get the total amount to construct. Write a java program (java8) and implement the test engines
+for testing. Wrtie the sequential sql query to insert data.
+
+
+
+create database prize	
+use prize	
+create table pdetails(city varchar(25),Pwithm integer,pwithoutm integer)	0 row(s) affected	0.063 sec
+insert into pdetails values("tvm",1600,800)	1 row(s) affected	0.016 sec
+insert into pdetails values("chn",1800,1000)	1 row(s) affected	0.016 sec
+insert into pdetails values("mc",2500,1200)	1 row(s) affected	0.015 sec
+insert into pdetails values("coh",1800,1200)	1 row(s) affected	0.015 sec
+insert into pdetails values("hyd",2000,900)	1 row(s) affected	0.016 sec
+alter table pdetails 
+add primary key(city)
+create table customer(cid integer primary key, cname varchar(25),city varchar(25) ,sqrfeet integer , foreign key(city) references pdetails(city) )	0 row(s) affected	0.046 sec
+insert into customer values(1,"Blesson","tvm",3)	1 row(s) affected	0.016 sec
+insert into customer values(2,"Anirudh","coh",4)	1 row(s) affected	0.000 sec
+insert into customer values(3,"Christo","chn",2)	1 row(s) affected	0.000 sec
+select customer.cid,customer.cname,customer.city,customer.sqrfeet,pdetails.pwithm,pdetails.pwithoutm,customer.sqrfeet*pdetails.pwithm as tpwm,customer.sqrfeet*pdetails.pwithoutm as tpwom
+from customer   
+JOIN  pdetails
+on customer.city=pdetails.city
+ 
